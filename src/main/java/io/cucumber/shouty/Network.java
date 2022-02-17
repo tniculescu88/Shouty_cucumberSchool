@@ -5,18 +5,26 @@ import java.util.List;
 
 public class Network {
 
-    private List<Person> personsSubscribed = new ArrayList<>();
-    //private List<String> messagesBroadcasted = new ArrayList<>();
+    private List<Person> personsSubscribed;
+    private int range;
+
+    public Network(int range)
+    {
+        this.range = range;
+        personsSubscribed = new ArrayList<>();
+    }
+
     public void subscribe(Person person)
     {
         personsSubscribed.add(person);
     }
 
 
-    public void broadcast(String message) {
+    public void broadcast(String message, int location) {
         for (Person p:personsSubscribed)
         {
-            p.addMessage(message);
+            if (Math.abs(p.getLocation() - location) <= this.range)
+                {p.addMessage(message);}
         }
 
     }
